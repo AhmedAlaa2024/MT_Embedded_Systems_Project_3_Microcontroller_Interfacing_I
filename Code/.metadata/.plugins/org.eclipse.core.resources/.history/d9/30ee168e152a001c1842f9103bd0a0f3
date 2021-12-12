@@ -1,0 +1,30 @@
+ /******************************************************************************
+ *
+ * Module: DC Motor
+ *
+ * File Name: dc_motor.h
+ *
+ * Description: DC Motor Driver
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#ifndef DC_MOTOR_H_
+#define DC_MOTOR_H_
+
+#include "std_types.h"
+
+/*******************************************************************************
+ *                               Types Declaration                             *
+ *******************************************************************************/
+typedef enum {
+	CW, ACW, OFF
+} Motor_State;
+
+typedef struct {
+	uint8 speed; /* Speed (Percentage) */
+	Motor_State state; /* The state of the Motor */
+} Dc_Motor_ConfigType;
+
+#endif /* DC_MOTOR_H_ */

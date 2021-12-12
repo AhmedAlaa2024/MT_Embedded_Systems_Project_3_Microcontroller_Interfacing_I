@@ -1,0 +1,41 @@
+ /******************************************************************************
+ *
+ * Module: DC Motor
+ *
+ * File Name: dc_motor.h
+ *
+ * Description: DC Motor Driver
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#ifndef DC_MOTOR_H_
+#define DC_MOTOR_H_
+
+#include "std_types.h"
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+#define LEFT_NODE_PORT_ID	1
+#define LEFT_NODE_PIN_ID	0
+
+#define RIGHT_NODE_PORT_ID	1
+#define RIGHT_MODE_PIN_ID	1
+/*******************************************************************************
+ *                               Types Declaration                             *
+ *******************************************************************************/
+typedef enum {
+	CW, ACW, OFF
+} Motor_State;
+
+typedef struct {
+	uint8 speed; /* The speed of the dc motor (Percentage) */
+	Motor_State state; /* The state of the Motor */
+} Dc_Motor_ConfigType;
+/*******************************************************************************
+ *                              Functions Prototypes                           *
+ *******************************************************************************/
+void DcMotor_Init(void);
+void DcMotor_Rotate(DcMotor_State state,uint8 speed);
+#endif /* DC_MOTOR_H_ */

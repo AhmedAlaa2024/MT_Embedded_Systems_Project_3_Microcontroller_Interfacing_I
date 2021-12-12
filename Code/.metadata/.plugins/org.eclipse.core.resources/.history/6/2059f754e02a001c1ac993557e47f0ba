@@ -1,0 +1,33 @@
+/*
+ * adc.c
+ *
+ *  Created on: Oct 2, 2021
+ *      Author: ahmed
+ */
+#include <avr/io.h>
+#include "adc.h"
+
+struct ADC_ConfigType ADC_Configs =
+{
+		INTERNAL_TURNED_OFF, /* ADC_MAXIMUM_REFERENCE_VOLTAGE = 5 */
+		FACTOR_8 /* ADC_MAXIMUM_DIGITAL_VALUE = 1023 */
+};
+
+void ADC_init(ADC_ConfigType* Config_Ptr)
+{
+	ADMUX = 0;
+	SET_BIT(ADCSRA, ADEN); /* Enable the ADC */
+	ADCSRA = (ADCSRA & 0xF8) | ((Config_Ptr->prescaler) & 0x07);
+	ADCSRA &= ~(1 << ADIE) & ~(1 << ADPS2);
+}
+
+
+uint16 ADC_readChannel(uint8 ch_num)
+{
+	ADMUX &= 0xE0;
+	ADMUX |= (ch_num & 0x07);
+	ADCSRA |= (1 << ADSC);
+	while(!(ADCSRA & (1 << ADIF)));
+	ADCSRA |= (1 << ADIF);
+	return ADC;
+}

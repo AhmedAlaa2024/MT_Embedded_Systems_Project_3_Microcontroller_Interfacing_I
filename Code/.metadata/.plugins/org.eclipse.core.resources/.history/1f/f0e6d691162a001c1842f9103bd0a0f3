@@ -1,0 +1,51 @@
+ /******************************************************************************
+ *
+ * Module: DC Motor
+ *
+ * File Name: dc_motor.h
+ *
+ * Description: DC Motor Driver
+ *
+ * Author: Ahmed Alaa
+ *
+ *******************************************************************************/
+
+#ifndef DC_MOTOR_H_
+#define DC_MOTOR_H_
+
+#include "std_types.h"
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+#define LEFT_NODE_PORT_ID	1
+#define LEFT_NODE_PIN_ID	0
+
+#define RIGHT_NODE_PORT_ID	1
+#define RIGHT_MODE_PIN_ID	1
+/*******************************************************************************
+ *                               Types Declaration                             *
+ *******************************************************************************/
+typedef enum {
+	CW, ACW, OFF
+} Motor_State;
+
+typedef struct {
+	uint8 speed; /* The speed of the dc motor (Percentage) */
+	Motor_State state; /* The state of the Motor */
+} Dc_Motor_ConfigType;
+/*******************************************************************************
+ *                              Functions Prototypes                           *
+ *******************************************************************************/
+/*
+ * Description :
+ * Setup the direction of the required pin input/output.
+ * If the input port number or pin number are not correct, The function will not handle the request.
+ */
+void DcMotor_Init(void);
+/*
+ * Description :
+ * The Function responsible for setup the direction for the two motor pins through the GPIO driver.
+ * Stop at the DC-Motor at the beginning through the GPIO driver.
+ */
+void DcMotor_Rotate(DcMotor_State state,uint8 speed);
+#endif /* DC_MOTOR_H_ */

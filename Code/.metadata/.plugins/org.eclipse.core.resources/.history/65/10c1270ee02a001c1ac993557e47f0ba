@@ -1,0 +1,38 @@
+/*
+ * adc.h
+ *
+ *  Created on: Oct 2, 2021
+ *  Author: ahmed
+ */
+
+#ifndef ADC_H_
+#define ADC_H_
+
+#include "std_types.h"
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+#define ADC_MAXIMUM_REFERENCE_VOLTAGE 5
+#define ADC_MAXIMUM_DIGITAL_VALUE 1023
+/*******************************************************************************
+ *                               Types Declaration                             *
+ *******************************************************************************/
+typedef enum {
+	INTERNAL_TURNED_OFF, AVCC_EXTERNAL_CAPACITOR_AREF, RESERVED, INTERNAL_2_56V
+} ADC_ReferenceVolatge;
+
+typedef enum {
+	FACTOR_2 = 1, FACTOR_4 = 1, FACTOR_8 = 3, FACTOR_16 = 4, FACTOR_32 = 5, FACTOR_64 = 6, FACTOR_128 = 7
+} ADC_Prescaler;
+
+typedef struct{
+	ADC_ReferenceVolatge ref_volt;
+	ADC_Prescaler prescaler;
+} ADC_ConfigType;
+/*******************************************************************************
+ *                              Functions Prototypes                           *
+ *******************************************************************************/
+void ADC_init(void);
+uint16 ADC_readChannel(uint8 ch_num);
+
+#endif /* ADC_H_ */

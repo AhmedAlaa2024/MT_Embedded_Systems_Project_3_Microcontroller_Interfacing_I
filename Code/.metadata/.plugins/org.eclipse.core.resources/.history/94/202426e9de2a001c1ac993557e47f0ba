@@ -1,0 +1,21 @@
+/*
+ * adc.h
+ *
+ *  Created on: Oct 2, 2021
+ *  Author: ahmed
+ */
+
+#ifndef ADC_H_
+#define ADC_H_
+
+#include "std_types.h"
+
+#define ADC_MAXIMUM_REFERENCE_VOLTAGE 5
+#define ADC_MAXIMUM_DIGITAL_VALUE 1023
+
+typedef struct{ ADC_ReferenceVolatge ref_volt; ADC_Prescaler prescaler; }ADC_ConfigType;
+
+void ADC_init(void);
+uint16 ADC_readChannel(uint8 ch_num);
+
+#endif /* ADC_H_ */

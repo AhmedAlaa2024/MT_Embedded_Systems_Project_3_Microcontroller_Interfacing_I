@@ -1,0 +1,56 @@
+/*
+ * main.c
+ *
+ *  Created on: Oct 2, 2021
+ *      Author: ahmed
+ */
+
+#include "std_types.h"
+#include "lcd.h"
+#include "lm35_sensor.h"
+#include "dc_motor.h"
+
+int main(void)
+{
+	LCD_init();
+	LM35_init();
+	DcMotor_Init();
+
+	LCD_moveCursor(1, 0);
+	LCD_displayString("Temperature= ");
+	uint8 temp = 0, speed = 0;
+
+	while(1)
+	{
+		temp = LM35_getTemperature();
+
+		if (temp < 30)
+			speed = 0;
+		else if ((temp >= 30) && (temp < 60))
+			speed = 25;
+		else if ((temp >= 60) && (temp < 90))
+			speed = 50;
+		else if ((temp >= 90) && (temp < 120))
+			speed = 75;
+		else if (temp >= 120)
+			speed = 100;
+
+		if(speed == 0)
+		{
+			DcMotor_Rotate(OFF, speed);
+			LCD_moveCursor(0, 3);
+			LCD_displayString("FAN IS OFF");
+		}
+		else
+		{
+			DcMotor_Rotate(CW, speed);
+			LCD_moveCursor(0, 5);
+			LCD_displayString("FAN IS ON");
+		}
+
+		LCD_moveCursor(1, 13);
+		LCD_intgerToString(temp);
+		LCD_displayString(" C");
+	}
+	return 0;
+}
